@@ -53,7 +53,7 @@ export const Blogs = () => {
       <div className="flex flex-col lg:flex-row">
         {/* Blog List Section */}
         <div className="px-4 mt-5 w-full lg:w-3/5">
-          {blogs.map((blog) => (
+          {[...blogs].reverse().map((blog) => (
             <BlogCard
               id={blog.id}
               key={blog.id}

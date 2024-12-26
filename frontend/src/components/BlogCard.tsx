@@ -36,7 +36,7 @@ export const BlogCard = ({
           ></div>
 
           <div className="text-gray-500 text-sm mb-4">{`${Math.ceil(
-            content.length / 1000
+            content.length / 109000
           )} minutes read`}</div>
         </div>
 

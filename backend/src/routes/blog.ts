@@ -87,8 +87,18 @@ blogRouter.post("/create", async (c) => {
       const data = await resend.emails.send({
         from: 'ThoughtSphere@webmaven.tech',
         to: receiver,
-        subject: 'Blog Created',
-        html: `<strong>Blog Created Successfully</strong><br/><p>Title :: ${body.title}</p><br/><p>Status: ${body.published ? "Published" : "Draft"}</p>`
+        subject: '🎉 Blog Created Successfully!',
+        html: `
+  <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+    <h2 style="color: #4CAF50;">Blog Created Successfully 🎉</h2>
+    <p><b>Title:</b> ${body.title}</p>
+    <p><b>Status:</b> ${body.published ? "Published" : "Draft"}</p>
+    ${body.published ? `<p><b>Published At:</b> ${new Date().toLocaleString()}</p>` : ''}
+    <hr />
+    <p style="font-size: 0.9em; color: #555;">Thank you for using our platform to share your ideas. We’re excited to see your blog grow!</p>
+    <p style="font-size: 0.9em; color: #555;">If you have any questions, feel free to <a href="mailto:ThoughtSphere@webmaven.tech" style="color: #4CAF50;">contact us</a>.</p>
+  </div>
+`
       });
       console.log(data);
     } catch (emailError) {
@@ -148,9 +158,21 @@ blogRouter.put("/update/:id", async (c) => {
       const data = await resend.emails.send({
         from: 'ThoughtSphere@webmaven.tech',
         to: receiver,
-        subject: 'Blog Edited',
-        html: `<strong>Blog Edited Successfully</strong><br/><p>Title :: ${body.title}</p>`
-        // html: "Edit success"
+        subject: '✏️ Blog Edited Successfully!',
+        html: `
+              <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+                <h2 style="color: #FFA500;">Blog Edited Successfully ✏️</h2>
+                <p><b>Title:</b> ${body.title}</p>
+                <p><b>Edited At:</b> ${new Date().toLocaleString()}</p>
+                <p style="font-size: 0.9em; color: #555;">
+                  Your changes have been saved successfully. You can review or publish your blog anytime.
+                </p>
+                <hr />
+                <p style="font-size: 0.9em; color: #555;">
+                  Need help? Feel free to <a href="mailto:ThoughtSphere@webmaven.tech" style="color: #FFA500;">contact us</a>.
+                </p>
+              </div>
+            `
       });
       console.log(data);
     } catch (emailError) {
@@ -342,8 +364,18 @@ blogRouter.delete("/:id", async (c) => {
       const data = await resend.emails.send({
         from: 'ThoughtSphere@webmaven.tech',
         to: receiver,
-        subject: 'Blog Deleted',
-        html: `<strong>Blog Deleted Successfully</strong>`
+        subject: '🗑️ Blog Deleted Successfully',
+        html: `
+              <div style="font-family: Arial, sans-serif; color: #333; line-height: 1.6;">
+                <h2 style="color: #D32F2F;">Blog Deleted Successfully 🗑️</h2>
+                <p><b>Deleted At:</b> ${new Date().toLocaleString()}</p>
+                <p>Your blog has been removed from the platform.</p>
+                <hr />
+                <p style="font-size: 0.9em; color: #555;">
+                  For further assistance, feel free to <a href="mailto:ThoughtSphere@webmaven.tech" style="color: #D32F2F;">contact our support team</a>.
+                </p>
+              </div>
+            `
       });
       console.log(data);
     } catch (emailError) {
@@ -375,7 +407,7 @@ blogRouter.post("/ai", async (c) => {
       return c.json({ error: "Invalid JSON format" }, 400);
     }
 
-    const { prompt } = body;
+    let { prompt } = body;
 
     if (!prompt) {
       return c.json({ error: "Prompt is required" }, 400);
@@ -423,7 +455,7 @@ blogRouter.post("/summarize", async (c) => {
     }
 
     let { prompt } = body;
-    prompt = prompt + " summarize using bulletpoints in 150 words use html tags"
+    prompt = prompt + " summarize using bulletpoints in 150 words use html tags and do not include ``` and html in response"
 
     if (!prompt) {
       return c.json({ error: "Prompt is required" }, 400);

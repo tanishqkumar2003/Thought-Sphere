@@ -51,7 +51,7 @@ export const BlogView = ({ blog }: { blog: Blog }) => {
         data: { email: localStorage.getItem("username") },
       });
       alert("Blog post deleted successfully.");
-      navigate("/edit");
+      navigate("/myblogs");
     } catch (e) {
       alert("Error while deleting blog.");
     }
@@ -199,7 +199,7 @@ export const BlogView = ({ blog }: { blog: Blog }) => {
                   isDraft ? "bg-yellow-500" : "bg-green-500"
                 } text-white`}
               >
-                {isDraft ? "Draft" : "Publish"}
+                {isDraft ? "Publish" : "Draft"}
               </button>
               <div className="space-x-4">
                 <button
